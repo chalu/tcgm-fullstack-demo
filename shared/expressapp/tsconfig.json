@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "ts-node": {
+        "transpileOnly": true,
+        "files": true,
+        "swc": true
+    },
+    "compilerOptions": {
+        "outDir": "dist"
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}

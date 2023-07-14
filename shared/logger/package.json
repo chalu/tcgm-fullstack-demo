@@ -8,9 +8,6 @@
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "build": "tsc --incremental"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "winston": "^3.10.0"
   }
