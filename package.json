@@ -1,0 +1,16 @@
+{
+  "name": "tcgm-fullstack-demo",
+  "version": "1.0.0",
+  "description": "take home assessment for senior full stack engineer role at TCG machines",
+  "main": "index.js",
+  "preinstall": "npx only-allow pnpm",
+  "scripts": {
+    "start": "pnpm --stream -r start",
+    "start:dev": "pnpm --parallel --stream -r run start:dev",
+    "build": "pnpm --stream -r run build",
+    "clean": "pnpm -r run clean"
+  },
+  "keywords": [],
+  "author": "Charles Odili <chaluwa@gmail.com>",
+  "license": "MIT"
+}
