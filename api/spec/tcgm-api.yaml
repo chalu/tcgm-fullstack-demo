@@ -1,0 +1,134 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: TCG Machines API Demo
+  license:
+    name: MIT
+servers:
+  - url: http://example.com/tcgapi/v1
+
+tags: 
+  - name: Cards
+    description: Cards
+paths:
+  /search:
+    get:
+      summary: search for and list cards that match the search query
+      operationId: searchCards
+      tags:
+        - Cards
+      parameters:
+        - name: q
+          in: query
+          description: The search term to find cards with
+          required: true
+          schema:
+            type: string
+            maxLength: 50
+            minLength: 3
+        - name: orderBy
+          in: query
+          description: On what property to order the matching cards.
+          schema:
+            type: string
+            enum:
+              - name
+              - released
+        - name: sort
+          in: query
+          schema:
+            type: string
+            enum:
+              - asc
+              - desc
+          description: >
+            Sort order:
+             * `asc` - Ascending, from A to Z
+             * `desc` - Descending, from Z to A
+
+      responses:
+        '200':
+          description: A paged list of cards matching the search term
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/QueryResult"
+        '400':
+          description: bad request error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
+        '500':
+          description: backend server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
+
+components:
+  schemas:
+    CardImageURIs:
+      type: object
+      properties:
+        small:
+          type: string
+          format: uri
+        normal:
+          type: string
+          format: uri
+        large:
+          type: string
+          format: uri
+    Card:
+      type: object
+      required:
+        - id
+        - name
+        - released_at
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        released_at:
+          type: string
+          format: date
+        image_uris:
+          $ref: "#/components/schemas/CardImageURIs"
+    QueryResult:
+      type: object
+      required:
+        - total
+        - data
+      properties:
+        total: 
+          type: integer
+          description: The total number of cards matching the search query
+        data:
+          type: array
+          maxItems: 175
+          minItems: 0
+          items:
+            $ref: "#/components/schemas/Card"
+          description: A page of the cards matching the search query
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of responses if one exists
+        previous:
+          type: string
+          format: url
+          description: A link to the previous page of responses if one exists
+    APIResponseError:
+      type: object
+      required:
+        - message
+      properties:
+        code:
+          type: integer
+          pattern: ^\d{3,3}$
+        message:
+          type: string
+          maxLength: 150
+          description: The error message from the server
