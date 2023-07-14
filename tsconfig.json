@@ -1,0 +1,10 @@
+{
+    "extends": "@tsconfig/node16-strictest/tsconfig.json",
+    "exclude": [
+        "api",
+        "client"
+    ],
+    "compilerOptions": {
+        "ignoreDeprecations": "5.0"
+    }
+}
