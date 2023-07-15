@@ -18,33 +18,9 @@ paths:
       tags:
         - Cards
       parameters:
-        - name: q
-          in: query
-          description: The search term to find cards with
-          required: true
-          schema:
-            type: string
-            maxLength: 50
-            minLength: 3
-        - name: orderBy
-          in: query
-          description: On what property to order the matching cards.
-          schema:
-            type: string
-            enum:
-              - name
-              - released
-        - name: sort
-          in: query
-          schema:
-            type: string
-            enum:
-              - asc
-              - desc
-          description: >
-            Sort order:
-             * `asc` - Ascending, from A to Z
-             * `desc` - Descending, from Z to A
+        - $ref: '#/components/parameters/queryParam'
+        - $ref: '#/components/parameters/orderByParam'
+        - $ref: '#/components/parameters/sortByParam'
 
       responses:
         '200':
@@ -52,21 +28,62 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/QueryResult"
+                $ref: "#/components/schemas/APIResponse"
         '400':
           description: bad request error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/APIResponseError"
+                $ref: "#/components/schemas/APIResponse"
         '500':
           description: backend server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/APIResponseError"
+                $ref: "#/components/schemas/APIResponse"
 
 components:
+  parameters:
+    queryParam:
+      in: query
+      name: q
+      description: The search term to find cards with
+      required: true
+      schema:
+        type: string
+        maxLength: 50
+        minLength: 3
+        example: pokey
+    orderByParam:
+      in: query
+      name: orderBy
+      description: On what property to order the matching cards.
+      required: false
+      schema:
+        type: string
+        enum:
+          - name
+          - released
+        default: name
+        example: name
+    sortByParam:
+      in: query
+      name: sort
+      required: false
+      schema:
+        type: string
+        enum:
+          - asc
+          - ASC
+          - desc
+          - DESC
+        default: asc
+        example: asc
+      description: >
+        Sort order:
+          * `asc` - Ascending, from A to Z
+          * `desc` - Descending, from Z to A
+
   schemas:
     CardImageURIs:
       type: object
@@ -80,6 +97,7 @@ components:
         large:
           type: string
           format: uri
+    
     Card:
       type: object
       required:
@@ -96,6 +114,7 @@ components:
           format: date
         image_uris:
           $ref: "#/components/schemas/CardImageURIs"
+    
     QueryResult:
       type: object
       required:
@@ -120,7 +139,13 @@ components:
           type: string
           format: url
           description: A link to the previous page of responses if one exists
-    APIResponseError:
+    
+    APIResponse:
+      oneOf:
+        - $ref: "#/components/schemas/QueryResult"
+        - $ref: "#/components/schemas/ResponseError"
+
+    ResponseError:
       type: object
       required:
         - message

@@ -11,7 +11,7 @@
  */
 
 
-export interface APIResponseError { 
+export interface ResponseError { 
     code?: number;
     /**
      * The error message from the server
