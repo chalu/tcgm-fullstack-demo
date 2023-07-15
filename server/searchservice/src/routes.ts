@@ -1,19 +1,16 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
+
+import searchEndpoint from './search.route';
 
 const router = Router();
 
-router.get('/', (_req, res) => {
+router.get('/', (_req: Request, res: Response) => {
   return res.json({
     message: 'Welcome to the API backend for the TCG Machines full stack demo'
   });
 });
 
-router.get('/search', (req, res) => {
-  const query = req.query['q'];
-  return res.json({
-    message: `You searcged for ${query}`
-  });
-});
+router.get('/search', searchEndpoint);
 
 export default router;
 
