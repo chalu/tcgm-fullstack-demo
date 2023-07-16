@@ -1,0 +1,7 @@
+// See - https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+
+@baseUrl = https://chalu-silver-cod-4wvgjrqww35q9q-5000.preview.app.github.dev
+
+## Search Cards
+GET {{baseUrl}}/search?term=pokey
