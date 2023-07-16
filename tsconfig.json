@@ -2,9 +2,10 @@
     "extends": "@tsconfig/node16-strictest/tsconfig.json",
     "exclude": [
         "api",
-        "client"
+        "dist"
     ],
     "compilerOptions": {
         "ignoreDeprecations": "5.0"
-    }
+    },
+    "include": ["./src/**/*.ts"]
 }

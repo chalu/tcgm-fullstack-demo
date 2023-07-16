@@ -13,14 +13,14 @@ tags:
 paths:
   /search:
     get:
-      summary: search for and list cards that match the search query
+      summary: search for and list cards that match the search term
       operationId: searchCards
       tags:
         - Cards
       parameters:
-        - $ref: '#/components/parameters/queryParam'
-        - $ref: '#/components/parameters/orderByParam'
-        - $ref: '#/components/parameters/sortByParam'
+        - $ref: '#/components/parameters/searchTerm'
+        - $ref: '#/components/parameters/orderBy'
+        - $ref: '#/components/parameters/sortBy'
 
       responses:
         '200':
@@ -28,63 +28,73 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/APIResponse"
+                $ref: "#/components/schemas/QueryResult"
         '400':
           description: bad request error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/APIResponse"
+                $ref: "#/components/schemas/ResponseError"
         '500':
           description: backend server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/APIResponse"
+                $ref: "#/components/schemas/ResponseError"
 
 components:
-  parameters:
-    queryParam:
+  parameters: 
+    searchTerm:
       in: query
-      name: q
+      name: searchTerm
       description: The search term to find cards with
       required: true
       schema:
-        type: string
-        maxLength: 50
-        minLength: 3
-        example: pokey
-    orderByParam:
+        $ref: "#/components/schemas/SearchTermParam"
+
+    orderBy:
       in: query
       name: orderBy
       description: On what property to order the matching cards.
       required: false
       schema:
-        type: string
-        enum:
-          - name
-          - released
-        default: name
-        example: name
-    sortByParam:
+        $ref: "#/components/schemas/OrderByParam"
+
+    sortBy:
       in: query
-      name: sort
+      name: sortBy
       required: false
-      schema:
-        type: string
-        enum:
-          - asc
-          - ASC
-          - desc
-          - DESC
-        default: asc
-        example: asc
       description: >
         Sort order:
-          * `asc` - Ascending, from A to Z
-          * `desc` - Descending, from Z to A
+          * `ASC` - Ascending, from A to Z
+          * `DESC` - Descending, from Z to A
+      schema:
+        $ref: "#/components/schemas/SortByParam"
 
   schemas:
+
+    SearchTermParam:
+      type: string
+      maxLength: 50
+      minLength: 3
+      example: pokey
+
+    OrderByParam:
+      type: string
+      enum:
+        - name
+        - released
+      default: name
+      example: name
+
+    SortByParam:
+      type: string
+      enum:
+        - ASC
+        - DESC
+      default: ASC
+      example: ASC
+
     CardImageURIs:
       type: object
       properties:

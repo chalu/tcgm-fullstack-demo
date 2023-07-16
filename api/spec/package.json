@@ -4,10 +4,10 @@
     "description": "",
     "scripts": {
       "clean": "rm -rf ../sdk ../docs",
-      "build": "pnpm clean && pnpm gen:sdk && pnpm gen:docs",
-      "start:dev": "prism mock tcgm-api.yaml",
-      "gen:sdk": "openapi-generator-cli generate -i tcgm-api.yaml -g typescript-angular --global-property models -o ../sdk",
-      "gen:docs": "redocly build-docs tcgm-api.yaml --theme.openapi.disableSearch -o ../docs/index.html"
+      "build": "pnpm clean && pnpm gen:sdk",
+      "start:dev": "prism mock api.yaml",
+      "gen:docs": "redocly build-docs api.yaml --theme.openapi.disableSearch -o ../docs/index.html",
+      "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true,withInterfaces=true"
     },
     "devDependencies": {
       "@openapitools/openapi-generator-cli": "^2.6.0",
