@@ -33,7 +33,6 @@ const searchEndpoint = async (req: Request, res: Response) => {
     const url = `${ScryfallAPI}/cards/search?q=${term}&order=${orderBy}&dir=${sortBy}&page=${page}`;
     const { data } = await axios.get(url);
     output = parseForResponse(data, url, page, sortBy);
-    console.log(req?.headers?.host);
   } catch (error) {
     console.warn(error);
     output = {
@@ -70,7 +69,7 @@ const parseCard = (raw: Card): Card => {
   return parsed;
 };
 
-const paginate = (fullUrl: string, hasMore: boolean, page: number, sortBy: string): Pagination => {
+export const paginate = (fullUrl: string, hasMore: boolean, page: number, sortBy: string): Pagination => {
   const nav: Pagination = {};
 
   const fixParamsForAPIClients = (uri: string) => {
