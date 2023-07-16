@@ -12,7 +12,7 @@
 import type { Card } from './card';
 
 
-export interface QueryResult { 
+export interface QueryResponse { 
     /**
      * The total number of cards matching the search query
      */
@@ -21,5 +21,13 @@ export interface QueryResult {
      * A page of the cards matching the search query
      */
     data: Array<Card>;
+    /**
+     * A link to the next page of responses if one exists
+     */
+    next?: string;
+    /**
+     * A link to the previous page of responses if one exists
+     */
+    previous?: string;
 }
 

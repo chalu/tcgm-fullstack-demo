@@ -17,7 +17,7 @@ const apiSpecYaml = jsyaml.load(ymlAsString) as string;
 const autoValidateRequestsMW = OpenApiValidator.middleware({
     apiSpec: apiSpecYaml,
     validateRequests: true, // (default)
-    validateResponses: false // false by default
+    validateResponses: true // false by default
 });
 
 expressapp(router, autoValidateRequestsMW);

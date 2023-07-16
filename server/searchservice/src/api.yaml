@@ -53,7 +53,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/QueryResult"
+                $ref: "#/components/schemas/QueryResponse"
         '400':
           description: bad request error
           content:
@@ -148,19 +148,58 @@ components:
       type: object
       required:
         - id
+        - uri
         - name
+        - lang
+        - prices
+        - foil
+        - nonfoil
+        - image_uris
         - released_at
       properties:
         id:
           type: string
+        lang:
+          type: string
+          maxLength: 5
         name:
           type: string
+        uri:
+          type: string
+          format: uri
         released_at:
           type: string
           format: date
+        games:
+          type: array
+          items:
+            type: string
         image_uris:
           $ref: "#/components/schemas/CardImageURIs"
-    
+        nonfoil:
+          type: boolean
+        foil:
+          type: boolean
+        prices:
+          type: object
+          properties:
+            usd:
+              type: string
+            eur:
+              type: string
+
+    Pagination:
+      type: object
+      properties:
+        next:
+          type: string
+          format: uri
+          description: A link to the next page of responses if one exists
+        previous:
+          type: string
+          format: url
+          description: A link to the previous page of responses if one exists
+
     QueryResult:
       type: object
       required:
@@ -177,14 +216,12 @@ components:
           items:
             $ref: "#/components/schemas/Card"
           description: A page of the cards matching the search query
-        next:
-          type: string
-          format: uri
-          description: A link to the next page of responses if one exists
-        previous:
-          type: string
-          format: url
-          description: A link to the previous page of responses if one exists
+    
+    QueryResponse:
+      allOf:
+        - $ref: "#/components/schemas/QueryResult"
+        - $ref: "#/components/schemas/Pagination"
+        
 
     APIError:
       type: object

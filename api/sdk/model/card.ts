@@ -9,13 +9,20 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
+import type { CardPrices } from './cardPrices';
 import type { CardImageURIs } from './cardImageURIs';
 
 
 export interface Card { 
     id: string;
+    lang: string;
     name: string;
+    uri: string;
     released_at: string;
-    image_uris?: CardImageURIs;
+    games?: Array<string>;
+    image_uris: CardImageURIs;
+    nonfoil: boolean;
+    foil: boolean;
+    prices: CardPrices;
 }
 

@@ -9,17 +9,10 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { Card } from './card';
 
 
-export interface QueryResult { 
-    /**
-     * The total number of cards matching the search query
-     */
-    total: number;
-    /**
-     * A page of the cards matching the search query
-     */
-    data: Array<Card>;
+export interface CardPrices { 
+    usd?: string;
+    eur?: string;
 }
 

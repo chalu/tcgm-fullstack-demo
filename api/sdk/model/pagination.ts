@@ -9,17 +9,16 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { Card } from './card';
 
 
-export interface QueryResult { 
+export interface Pagination { 
     /**
-     * The total number of cards matching the search query
+     * A link to the next page of responses if one exists
      */
-    total: number;
+    next?: string;
     /**
-     * A page of the cards matching the search query
+     * A link to the previous page of responses if one exists
      */
-    data: Array<Card>;
+    previous?: string;
 }
 
