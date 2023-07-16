@@ -46,6 +46,7 @@ paths:
         - $ref: '#/components/parameters/searchTerm'
         - $ref: '#/components/parameters/orderBy'
         - $ref: '#/components/parameters/sortBy'
+        - $ref: '#/components/parameters/page'
 
       responses:
         '200':
@@ -80,7 +81,7 @@ components:
     orderBy:
       in: query
       name: orderby
-      description: On what property to order the matching cards.
+      description: On what property to order the matching cards. Default is `name`
       required: false
       schema:
         $ref: "#/components/schemas/OrderByParam"
@@ -90,14 +91,29 @@ components:
       name: sortby
       required: false
       description: >
+        The sort order of the returned cards. Default is `AUTO`
         Sort order:
           * `ASC` - Ascending, from A to Z
           * `DESC` - Descending, from Z to A
-          * `AUTO` - Allow the system choose the most inuitive direction to sort
+          * `AUTO` - Allow the system choose the most inuitive direction to sort.
       schema:
         $ref: "#/components/schemas/SortByParam"
 
+    page:
+      in: query
+      name: page
+      description: The page of the matching resultset to return. Default is `1`.
+      required: false
+      schema:
+        $ref: "#/components/schemas/PageParam"
+
   schemas:
+
+    PageParam:
+      type: integer
+      minimum: 1
+      example: 1
+      default: 1
 
     SearchTermParam:
       type: string
@@ -193,11 +209,9 @@ components:
       properties:
         next:
           type: string
-          format: uri
           description: A link to the next page of responses if one exists
         previous:
           type: string
-          format: url
           description: A link to the previous page of responses if one exists
 
     QueryResult:

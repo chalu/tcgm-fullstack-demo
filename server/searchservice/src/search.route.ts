@@ -25,13 +25,15 @@ const searchEndpoint = async (req: Request, res: Response) => {
   const ScryfallAPI = process.env['ScryfallBase'];
 
   const term = req.query['term'];
+  const page = parseInt(`${req.query['page'] || 1}`, 10);
   const sortBy = `${req.query['sortby'] || SortByParam.Auto}`.toLowerCase();
   const orderBy = `${req.query['orderBy'] || OrderByParam.Name}`.toLowerCase();
 
   try {
-    const url = `${ScryfallAPI}/cards/search?q=${term}&order=${orderBy}&dir=${sortBy}`;
+    const url = `${ScryfallAPI}/cards/search?q=${term}&order=${orderBy}&dir=${sortBy}&page=${page}`;
     const { data } = await axios.get(url);
-    output = parseForResponse(data, url);
+    output = parseForResponse(data, url, page, sortBy);
+    console.log(req?.headers?.host);
   } catch (error) {
     console.warn(error);
     output = {
@@ -68,24 +70,36 @@ const parseCard = (raw: Card): Card => {
   return parsed;
 };
 
-const paginate = (url: string, hasMore: boolean): Pagination => {
+const paginate = (fullUrl: string, hasMore: boolean, page: number, sortBy: string): Pagination => {
   const nav: Pagination = {};
-  if (hasMore === true) {
-    // TODO compute correct URL
-    nav.next = `${url}`;
+
+  const fixParamsForAPIClients = (uri: string) => {
+    return uri
+      .replace(/q=/, 'term=')
+      .replace(/order=/, 'orderby=')
+      .replace(/dir=\w+/, `sortby=${sortBy.toUpperCase()}`);
   }
 
-  // TODO maybe url param can tell if we are paginated
-  // can we then set out.previous?
+  const url = fullUrl.substring(fullUrl.indexOf('/search'));
+
+  if (page >= 2) {
+    const link = `${url}`.replace(/page=\d+/, `page=${page - 1}`);
+    nav.previous = fixParamsForAPIClients(link);
+  }
+
+  if (hasMore === true) {
+    const link = `${url}`.replace(/page=\d+/, `page=${page + 1}`);
+    nav.next = fixParamsForAPIClients(link);
+  }
 
   return nav;
 }
 
-const parseForResponse = (list: CardsList, url: string): QueryResponse => {
+const parseForResponse = (list: CardsList, url: string, page: number, sortBy: string): QueryResponse => {
   const { has_more, total_cards } = list;
 
   const cards: Card[] = [];
-  const nav = paginate(url, has_more);
+  const nav = paginate(url, has_more, page, sortBy);
   const response: QueryResponse = {
     total: total_cards,
     ...nav,
