@@ -9,13 +9,9 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { CardImageURIs } from './cardImageURIs';
 
 
-export interface Card { 
-    id: string;
-    name: string;
-    released_at: string;
-    image_uris?: CardImageURIs;
+export interface APIWelcome { 
+    message: string;
 }
 

@@ -11,11 +11,8 @@
  */
 
 
-export interface ResponseError { 
-    code?: number;
-    /**
-     * The error message from the server
-     */
-    message: string;
+export interface APIError { 
+    message?: string;
+    path?: string;
 }
 

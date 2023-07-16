@@ -7,7 +7,7 @@
       "build": "pnpm clean && pnpm gen:sdk",
       "start:dev": "prism mock api.yaml",
       "gen:docs": "redocly build-docs api.yaml --theme.openapi.disableSearch -o ../docs/index.html",
-      "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true,withInterfaces=true"
+      "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true"
     },
     "devDependencies": {
       "@openapitools/openapi-generator-cli": "^2.6.0",

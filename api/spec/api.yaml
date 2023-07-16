@@ -5,12 +5,37 @@ info:
   license:
     name: MIT
 servers:
-  - url: http://example.com/tcgapi/v1
+  - url: ''
 
 tags: 
   - name: Cards
     description: Cards
 paths:
+  /:
+    get:
+      summary: the default endpoint for this API. Display basic informational message
+      operationId: apiHome
+      tags:
+        - Cards
+      responses:
+        '200':
+          description: A basic informational message about the search cards API
+          content:
+            application/json:    
+              schema:
+                $ref: "#/components/schemas/APIWelcome"
+        '400':
+          description: bad request error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
+        '500':
+          description: backend server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
   /search:
     get:
       summary: search for and list cards that match the search term
@@ -34,19 +59,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/APIResponseError"
         '500':
           description: backend server error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ResponseError"
+                $ref: "#/components/schemas/APIResponseError"
 
 components:
   parameters: 
     searchTerm:
       in: query
-      name: searchTerm
+      name: term
       description: The search term to find cards with
       required: true
       schema:
@@ -54,7 +79,7 @@ components:
 
     orderBy:
       in: query
-      name: orderBy
+      name: orderby
       description: On what property to order the matching cards.
       required: false
       schema:
@@ -62,12 +87,13 @@ components:
 
     sortBy:
       in: query
-      name: sortBy
+      name: sortby
       required: false
       description: >
         Sort order:
           * `ASC` - Ascending, from A to Z
           * `DESC` - Descending, from Z to A
+          * `AUTO` - Allow the system choose the most inuitive direction to sort
       schema:
         $ref: "#/components/schemas/SortByParam"
 
@@ -92,8 +118,18 @@ components:
       enum:
         - ASC
         - DESC
-      default: ASC
-      example: ASC
+        - AUTO
+      default: AUTO
+      example: AUTO
+
+    APIWelcome:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          maxLength: 500
 
     CardImageURIs:
       type: object
@@ -149,21 +185,28 @@ components:
           type: string
           format: url
           description: A link to the previous page of responses if one exists
-    
-    APIResponse:
-      oneOf:
-        - $ref: "#/components/schemas/QueryResult"
-        - $ref: "#/components/schemas/ResponseError"
 
-    ResponseError:
+    APIError:
+      type: object
+      properties:
+        message:
+          type: string
+        path:
+          type: string
+
+    APIResponseError:
       type: object
       required:
         - message
       properties:
-        code:
-          type: integer
-          pattern: ^\d{3,3}$
         message:
           type: string
           maxLength: 150
           description: The error message from the server
+        code:
+          type: integer
+          pattern: ^\d{3,3}$
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/APIError"

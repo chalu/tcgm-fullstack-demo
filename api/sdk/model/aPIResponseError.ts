@@ -9,14 +9,15 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import { QueryResult } from './queryResult';
-import { ResponseError } from './responseError';
-import { Card } from './card';
+import type { APIError } from './aPIError';
 
 
-/**
- * @type APIResponse
- * @export
- */
-export type APIResponse = QueryResult | ResponseError;
+export interface APIResponseError { 
+    /**
+     * The error message from the server
+     */
+    message: string;
+    code?: number;
+    errors?: Array<APIError>;
+}
 

@@ -11,10 +11,11 @@
  */
 
 
-export type SortByParam = 'ASC' | 'DESC';
+export type SortByParam = 'ASC' | 'DESC' | 'AUTO';
 
 export const SortByParam = {
     Asc: 'ASC' as SortByParam,
-    Desc: 'DESC' as SortByParam
+    Desc: 'DESC' as SortByParam,
+    Auto: 'AUTO' as SortByParam
 };
 
