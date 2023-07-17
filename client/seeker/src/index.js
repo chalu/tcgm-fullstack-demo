@@ -100,7 +100,7 @@ const resultItemTemplate = ({ id, name, img, games, prices }) => `
 const displayResults = ({ total, next, previous, data }) => {
 
     const cards = []
-    for (cd of data) {
+    for (const cd of data) {
         const priceFigures = cd.prices && Object.keys(cd.prices)
             .map((currency) => {
                 return new Intl.NumberFormat('en-US', {
