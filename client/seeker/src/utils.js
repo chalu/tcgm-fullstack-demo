@@ -1,20 +1,14 @@
-const delayASec = () => new Promise((resolve) => {
+export const wait = ({until} = { until: 1000 }) => new Promise((resolve) => {
     setTimeout(() => {
         return resolve();
-    }, 1000);
+    }, until);
 });
 
-const toSingleChainedCall = async (chain, apiCall) => {
-    const preResults = await chain;
-    await delayASec();
-    const result = await apiCall();
-    
-    const out = !preResults ? [result] : [...preResults, result];
-    return Promise.resolve(out)
-};
-
-export const waitUntilASec = (apiCallFn) => {
-    return () => {
-        return [apiCallFn].reduce(toSingleChainedCall, Promise.resolve([]));
+export const settle = (tailPromise) => {
+    return {
+        async after(headPromise) {
+            await headPromise;
+            await tailPromise;
+        }
     }
 };

@@ -45,7 +45,7 @@ const searchEndpoint = async (req: Request, res: Response) => {
       numOfAttempts: MaxScryfallAPIRetries,
       retry: (e: any, attemptNumber: number) => {
         let msg = `Calling Scryfall failed [${attemptNumber}]. Will`;
-        msg += attemptNumber >= MaxScryfallAPIRetries ? ' not retry' : ' retry'; 
+        msg += attemptNumber >= MaxScryfallAPIRetries ? ' no longer retry' : ' retry'; 
         log.warn(msg);
         log.warn(e);
         return true;
