@@ -5,6 +5,7 @@
   "main": "./dist/server/searchservice/src/index.js",
   "scripts": {
     "test": "jest --runInBand",
+    "lint": "eslint --fix",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
     "build": "pnpm copyapi && pnpm build:ts",
     "start": "node ./dist/server/searchservice/src/index.js",
