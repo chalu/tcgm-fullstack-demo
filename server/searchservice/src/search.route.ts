@@ -29,6 +29,10 @@ const searchEndpoint = async (req: Request, res: Response) => {
   const ScryfallAPI = process.env['ScryfallBase'];
   const MaxScryfallAPIRetries = parseInt(process.env['MaxScryfallAPIRetries'] || '3', 10);
 
+  if (!ScryfallAPI || !MaxScryfallAPIRetries) {
+    log.warn('ENV variables not set/reachable. Service might not work as expected');
+  }
+
   const term = req.query['term'];
   const page = parseInt(`${req.query['page'] || 1}`, 10);
   const sortBy = `${req.query['sortby'] || SortByParam.Auto}`.toLowerCase();
@@ -39,10 +43,11 @@ const searchEndpoint = async (req: Request, res: Response) => {
     // const { data } = await axios.get(url);
     const backOffAndRetryOpts = {
       numOfAttempts: MaxScryfallAPIRetries,
-      retry: (_e: any, attemptNumber: number) => {
-        let msg = `Calling Scryfall failed [${attemptNumber}] times. May`;
-        msg += attemptNumber >= MaxScryfallAPIRetries ? ' not retry again' : ' retry again'; 
+      retry: (e: any, attemptNumber: number) => {
+        let msg = `Calling Scryfall failed [${attemptNumber}]. Will`;
+        msg += attemptNumber >= MaxScryfallAPIRetries ? ' not retry' : ' retry'; 
         log.warn(msg);
+        log.warn(e);
         return true;
       }
     };

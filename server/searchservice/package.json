@@ -8,7 +8,7 @@
     "test": "jest --runInBand",
     "lint": "eslint --fix",
     "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "start": "PORT=10000 node ./dist/server/searchservice/src/index.js",
+    "start": "PORT=3001 node ./dist/server/searchservice/src/index.js",
     "build:ts": "tsc --incremental",
     "copyapi": "cp ../../api/spec/api.yaml ./src",
     "start:dev": "PORT=3001 nodemon ./src/index.ts",
