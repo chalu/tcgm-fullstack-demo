@@ -2,21 +2,24 @@ openapi: "3.0.0"
 info:
   version: 1.0.0
   title: TCG Machines API Demo
+  description: |
+    A simple REST API for searching and listing trading game cards
   license:
     name: MIT
 servers:
   - url: ''
 
 tags: 
-  - name: Cards
-    description: Cards
+  - name: Search
+    description: Search trading game cards
 paths:
   /:
     get:
-      summary: the default endpoint for this API. Display basic informational message
+      summary: API Home
+      description: The home endpoint for this API. Displays basic informational message
       operationId: apiHome
       tags:
-        - Cards
+        - Search
       responses:
         '200':
           description: A basic informational message about the search cards API
@@ -38,10 +41,11 @@ paths:
                 $ref: "#/components/schemas/APIResponseError"
   /search:
     get:
-      summary: search for and list cards that match the search term
+      summary: List Cards
+      description: Search for, and list trading game cards that match a search term
       operationId: searchCards
       tags:
-        - Cards
+        - Search
       parameters:
         - $ref: '#/components/parameters/searchTerm'
         - $ref: '#/components/parameters/orderBy'
