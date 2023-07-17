@@ -18,7 +18,7 @@ const apiSpecYaml = jsyaml.load(ymlAsString) as string;
 const autoValidateRequestsMW = OpenApiValidator.middleware({
     apiSpec: apiSpecYaml,
     validateRequests: true, // (default)
-    validateResponses: true // false by default
+    validateResponses: false // false by default
 });
 
 const rateLimiter = rateLimit({
