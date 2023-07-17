@@ -1,6 +1,8 @@
 import axios from 'axios';
-
+import log from 'logger';
 import type { Request, Response } from 'express';
+import { backOff } from "exponential-backoff";
+
 import type { Card } from '../../../api/sdk/model/card';
 import type { CardPrices } from '../../../api/sdk/model/cardPrices';
 import type { Pagination } from '../../../api/sdk/model/pagination';
@@ -19,19 +21,33 @@ type CardsList = {
   data: Card[];
 };
 
+const callScryfallAPI = (url: string) => axios.get(url);
+
 const searchEndpoint = async (req: Request, res: Response) => {
   let output: APIResponse;
 
   const ScryfallAPI = process.env['ScryfallBase'];
+  const MaxScryfallAPIRetries = parseInt(process.env['MaxScryfallAPIRetries'] || '3', 10);
 
   const term = req.query['term'];
   const page = parseInt(`${req.query['page'] || 1}`, 10);
   const sortBy = `${req.query['sortby'] || SortByParam.Auto}`.toLowerCase();
   const orderBy = `${req.query['orderBy'] || OrderByParam.Name}`.toLowerCase();
+  const url = `${ScryfallAPI}/cards/search?q=${term}&order=${orderBy}&dir=${sortBy}&page=${page}`;
 
   try {
-    const url = `${ScryfallAPI}/cards/search?q=${term}&order=${orderBy}&dir=${sortBy}&page=${page}`;
-    const { data } = await axios.get(url);
+    // const { data } = await axios.get(url);
+    const backOffAndRetryOpts = {
+      numOfAttempts: MaxScryfallAPIRetries,
+      retry: (_e: any, attemptNumber: number) => {
+        let msg = `Calling Scryfall failed [${attemptNumber}] times. May`;
+        msg += attemptNumber >= MaxScryfallAPIRetries ? ' not retry again' : ' retry again'; 
+        log.warn(msg);
+        return true;
+      }
+    };
+
+    const { data } = await backOff(() => callScryfallAPI(url), backOffAndRetryOpts);
     output = parseForResponse(data, url, page, sortBy);
   } catch (error) {
     console.warn(error);
