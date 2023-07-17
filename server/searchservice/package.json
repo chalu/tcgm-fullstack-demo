@@ -2,6 +2,7 @@
   "name": "searchservice",
   "version": "1.0.0",
   "description": "",
+  "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "main": "./dist/server/searchservice/src/index.js",
   "scripts": {
     "test": "jest --runInBand",

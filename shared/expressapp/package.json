@@ -2,6 +2,7 @@
   "name": "expressapp",
   "version": "1.0.0",
   "description": "",
+  "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "main": "./dist/index.js",
   "types": "src/index.ts",
   "scripts": {

@@ -2,6 +2,7 @@
     "name": "spec",
     "version": "1.0.0",
     "description": "",
+    "author": "Charles Opute Odili <chaluwa@gmail.com>",
     "scripts": {
       "clean": "rm -rf ../sdk ../docs",
       "build": "pnpm clean && pnpm gen:sdk",
