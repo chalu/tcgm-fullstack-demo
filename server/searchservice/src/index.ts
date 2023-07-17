@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
-import dotenv  from "dotenv"
+import dotenv from "dotenv"
 
 import * as jsyaml from 'js-yaml';
+import rateLimit from 'express-rate-limit'
 import * as OpenApiValidator from 'express-openapi-validator';
 
 import router from './routes';
@@ -20,4 +21,11 @@ const autoValidateRequestsMW = OpenApiValidator.middleware({
     validateResponses: true // false by default
 });
 
-expressapp(router, autoValidateRequestsMW);
+const rateLimiter = rateLimit({
+    windowMs: 1000,         // 1 second
+    max: 1,                 // Limit each IP to 1 request per `window`
+    standardHeaders: true,  // Return rate limit info in the `RateLimit-*` headers
+    legacyHeaders: false    // Disable the `X-RateLimit-*` headers
+})
+
+expressapp(router, [...autoValidateRequestsMW, rateLimiter]);
