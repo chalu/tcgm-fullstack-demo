@@ -29,8 +29,8 @@ const searchEndpoint = async (req: Request, res: Response) => {
   const ScryfallAPI = process.env['ScryfallBase'];
   const MaxScryfallAPIRetries = parseInt(process.env['MaxScryfallAPIRetries'] || '3', 10);
 
-  if (!ScryfallAPI || !MaxScryfallAPIRetries) {
-    log.warn('ENV variables not set/reachable. Service might not work as expected');
+  if (!ScryfallAPI) {
+    log.warn('ScryfallAPI ENV is not set/reachable. Expect errors ...');
   }
 
   const term = req.query['term'];
