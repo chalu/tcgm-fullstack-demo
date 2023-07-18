@@ -1,6 +1,6 @@
 import React from 'react';
 
-// import Footer from './Footer';
+import Footer from './Footer';
 import SearchBar from './SearchBar';
 // import ResultsView from './ResultsView';
 
@@ -38,7 +38,7 @@ const App = () => {
         <>
             <SearchBar submitHandler={handleSubmission} inputHandler={setTerm} />
             {/* <ResultsView searchResults={results} /> */}
-            {/* <Footer searchResults={results} navHandler={handleNav} /> */}
+            <Footer searchResults={results} navHandler={handleNav} />
         </>
     );
 }
