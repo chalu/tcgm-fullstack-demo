@@ -11,18 +11,16 @@ const App = () => {
     const [query, setSearchQuery] = React.useState(null);
     const [results, setResults] = React.useState([]);
 
-    const validationPtrn = /^\w+$/;
+    const validationPtrn = /^\w{3,}$/;
     const handleSubmission = (event) => {
         event.preventDefault();
 
         if (validationPtrn.test(term || '') !== true) return;
         setSearchQuery(term);
-        console.log(term);
     };
 
     const handleNav = (navTo) => {
         return (event) => {
-            console.log(navTo);
             performSearch(query, setResults, navTo)
             .catch((e) => { console.warn(e) });
         }
