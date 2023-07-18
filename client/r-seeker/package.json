@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel",
     "clean": "rm -rf dist",
-    "build": "pnpm clean && parcel build"
+    "build": "pnpm install && pnpm clean && parcel build"
   },
   "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "license": "MIT",
