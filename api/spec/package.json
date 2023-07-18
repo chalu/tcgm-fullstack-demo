@@ -4,8 +4,8 @@
     "description": "",
     "author": "Charles Opute Odili <chaluwa@gmail.com>",
     "scripts": {
-      "clean": "rm -rf ../sdk ../docs",
-      "build": "pnpm clean && pnpm gen:sdk",
+      "clean": "rm -rf ../docs",
+      "build": "pnpm install && pnpm clean && pnpm gen:docs",
       "start:dev": "prism mock api.yaml",
       "gen:docs": "redocly build-docs api.yaml --theme.openapi.disableSearch -o ../docs/index.html",
       "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true"
