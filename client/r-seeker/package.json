@@ -6,11 +6,13 @@
   "scripts": {
     "start": "parcel",
     "clean": "rm -rf dist",
+    "start:local": "http-server ./dist",
     "build": "pnpm install && pnpm clean && parcel build"
   },
   "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "http-server": "^14.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
