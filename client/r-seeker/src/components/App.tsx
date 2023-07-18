@@ -2,7 +2,7 @@ import React from 'react';
 
 import Footer from './Footer';
 import SearchBar from './SearchBar';
-// import ResultsView from './ResultsView';
+import ResultsView from './ResultsView';
 
 import performSearch from '../core/engine';
 
@@ -37,7 +37,7 @@ const App = () => {
     return (
         <>
             <SearchBar submitHandler={handleSubmission} inputHandler={setTerm} />
-            {/* <ResultsView searchResults={results} /> */}
+            <ResultsView searchResults={results} />
             <Footer searchResults={results} navHandler={handleNav} />
         </>
     );
