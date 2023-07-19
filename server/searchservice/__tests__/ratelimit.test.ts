@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { expect, describe, test, jest } from '@jest/globals';
 
-const apiBase = 'http://localhost:5000';
+const apiBase = 'http://localhost:3001';
 jest.setTimeout(10000);
 
 describe('API Rate Limiter', () => {

@@ -3,7 +3,7 @@ import { expect, describe, test, jest } from '@jest/globals';
 
 import { paginate } from '../dist/server/searchservice/src/search.route';
 
-const apiBase = 'http://localhost:5000';
+const apiBase = 'http://localhost:3001';
 jest.setTimeout(10000);
 
 describe('Basic Request/Response', () => {
