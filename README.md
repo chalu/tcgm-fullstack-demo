@@ -4,6 +4,8 @@ Hello 👋,
 
 This is a simple but production-leve full stack application demo built as part of the requirements for the TCG Machines Senior Fullstack Software Engineer role. 
 
+![React client preview](./client/r-seeker/tcgm-fullstack-react-client.png)
+
 Review the [instructions](./INSTRCTIONS.md) for what was expected and then take a look at the [explanation](./DESIGN_EXPLANATION.md) for my implementation details.
 
 > ##### Key Assets Delivered
