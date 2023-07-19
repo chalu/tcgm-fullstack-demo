@@ -33,7 +33,8 @@ const CardView = ({card}: HasCard) => {
         <div id={id}
             className="ml-5 max-w-xs max-h-fit bg-gray-800 pt-0 border rounded-lg shadow border-gray-700">
                 <div className='bg-white pb-1 pt-1'>
-                    <img className="rounded-t-lg m-2 bg-white m-auto mt-2.5 mb-2.5 block" src={img} alt={name} />
+                    <img src={img} alt={name} width={146} height={'auto'}
+                        className="rounded-t-lg m-2 bg-white m-auto mt-2.5 mb-2.5 block" />
                 </div>
     
             <div className="max-w-xs p-5 bg-gray-800">
