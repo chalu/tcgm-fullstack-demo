@@ -7,7 +7,7 @@ import rateLimit from 'express-rate-limit'
 import * as OpenApiValidator from 'express-openapi-validator';
 
 import router from './routes';
-import expressapp from 'expressapp';
+import expressapp from 'expressbare';
 
 dotenv.config();
 

@@ -33,7 +33,7 @@ Thanks for putting the assessment together. I enjoyed taking the chalenge, thoug
 
 I elected to use pnpm workspaces as a monorepo structure for the project. This helps to better manage multiple sub-projects / modules within a single monolithic codebase, but with better dependency management and code reuse. 
 
-For instance, [expressapp and logger](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) are indipendent sub-modules which the backend `searchservice` adds as dependencies in its own package.json file. With this, the `searchservice` focuses on implementing the `/search` endpoint and does not worry about setting up Express or logging
+For instance, [expressbare and logger](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) are indipendent sub-modules which the backend `searchservice` adds as dependencies in its own package.json file. With this, the `searchservice` focuses on implementing the `/search` endpoint and does not worry about setting up Express or logging
 
 ### API-first Approach
 
@@ -51,7 +51,7 @@ The API spec clearly specifies:
 
 ### Backend [Search Service](https://github.com/chalu/tcgm-fullstack-demo/tree/main/server/searchservice)
 
-1.  (re)uses the [expressapp and logger sub-modules](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) I created in the monorepo. This makes the backedn search service code cleaner, leaner, more focused and more maintainable.
+1.  (re)uses the [expressbare and logger sub-modules](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) I created in the monorepo. This makes the backedn search service code cleaner, leaner, more focused and more maintainable.
 2.  Uses a *3rd party middleware* to automatically validate incoming requests and auto respond with `4xx` errors [if the request does not confirm with the API spec](https://github.com/chalu/tcgm-fullstack-demo/blob/main/server/searchservice/src/index.ts#L18-L22). This means the backend **validation and unit tests** can focus on business logic - if any (not if the search term is `0` chars long 🙃). A major win for API-first design! 
 3.  (re)use Typescript [types/interfaces](https://github.com/chalu/tcgm-fullstack-demo/tree/main/api/sdk/model) generated from the API spec. Yet another win for API-first design!
 4.  Though the requirements hinted on not allowing the frontend search input to issue more than one search within 1 second. I also went ahead and added [a rate-limiter](https://github.com/chalu/tcgm-fullstack-demo/blob/main/server/searchservice/src/index.ts#L24-L29) *(with a 3rd party module)* to the `/search` endpoint so that the behaviour will apply even to integrators/client who call the backend directly

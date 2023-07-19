@@ -1,5 +1,5 @@
 {
-  "name": "expressapp",
+  "name": "expressbare",
   "version": "1.0.0",
   "description": "",
   "author": "Charles Opute Odili <chaluwa@gmail.com>",
@@ -12,7 +12,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.18.2",
-    "logger": "workspace:*",
+    "logger": "workspace:^1.0.0",
     "morgan": "^1.10.0"
   },
   "devDependencies": {

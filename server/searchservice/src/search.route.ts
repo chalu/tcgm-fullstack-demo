@@ -13,7 +13,7 @@ import type { APIResponseError } from '../../../api/sdk/model/aPIResponseError';
 import { SortByParam } from '../../../api/sdk/model/sortByParam';
 import { OrderByParam } from '../../../api/sdk/model/orderByParam';
 
-type APIResponse = APIResponseError | QueryResponse
+type APIResponse = APIResponseError | QueryResponse;
 
 type CardsList = {
   total_cards: number;
