@@ -27,3 +27,52 @@ Thanks for putting the assessment together. I enjoyed taking the chalenge, thoug
     -   ✅ Design aesthetically pleasing and responsive in the browser
     -   ✅ Entire interface is styled using [Tailwindcss](https://tailwindcss.com) 
 
+## Implementation Details
+
+### Monorepo Approach
+
+I elected to use pnpm workspaces as a monorepo structure for the project. This helps to better manage multiple sub-projects / modules within a single monolithic codebase, but with better dependency management and code reuse. 
+
+For instance, [expressapp and logger](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) are indipendent sub-modules which the backend `searchservice` adds as dependencies in its own package.json file. With this, the `searchservice` focuses on implementing the `/search` endpoint and does not worry about setting up Express or logging
+
+### API-first Approach
+
+> The API-first approach prioritizes APIs at the beginning of the software development process, positioning APIs as the building blocks of software. API-first organizations develop APIs before writing other code, instead of treating them as afterthoughts ...
+<br /> [postman.com/api-first/](postman.com/api-first/)
+
+Adopting an API-first approach enabled me prioritise designing the API (contract between the React frontend and Node backend service) using the OpenAPI standard, and treating the API as a first class citizen in the project. 
+
+With this, the project can benefit from generating API [documentation](https://tcg-api-demo.onrender.com) for integrators, generating Typescript [types/interfaces](https://github.com/chalu/tcgm-fullstack-demo/tree/main/api/sdk/model) that the dependent services (e.g frontend and backend) can (re)use, and potentially build/test/mock/deploy the API without affecting/breaking other services.
+
+The API spec clearly specifies:
+
+1.  The shape and form of query parameters in the `/search` endpoint, including data types and contraints. Models are defined and refereced throughout the spec. These models get generated into Typescript types/interfaces that the backend and frontend can reuse if they so desire  
+2.  A home endpoint so that there's a basic response if anyone hits the `/` endpoint apart from the `/search` endpoint that gets something meaningful done.
+
+### Backend [Search Service](https://github.com/chalu/tcgm-fullstack-demo/tree/main/server/searchservice)
+
+1.  (re)uses the [expressapp and logger sub-modules](https://github.com/chalu/tcgm-fullstack-demo/tree/main/shared) I created in the monorepo. This makes the backedn search service code cleaner, leaner, more focused and more maintainable.
+2.  Uses a *3rd party middleware* to automatically validate incoming requests and auto respond with `4xx` errors [if the request does not confirm with the API spec](https://github.com/chalu/tcgm-fullstack-demo/blob/main/server/searchservice/src/index.ts#L18-L22). This means the backend **validation and unit tests** can focus on business logic - if any (not if the search term is `0` chars long 🙃). A major win for API-first design! 
+3.  (re)use Typescript [types/interfaces](https://github.com/chalu/tcgm-fullstack-demo/tree/main/api/sdk/model) generated from the API spec. Yet another win for API-first design!
+4.  Though the requirements hinted on not allowing the frontend search input to issue more than one search within 1 second. I also went ahead and added [a rate-limiter](https://github.com/chalu/tcgm-fullstack-demo/blob/main/server/searchservice/src/index.ts#L24-L29) *(with a 3rd party module)* to the `/search` endpoint so that the behaviour will apply even to integrators/client who call the backend directly
+5.  Since the backend relies on the external **Scryfall API**, I added [exponential backoff and retries](https://github.com/chalu/tcgm-fullstack-demo/blob/main/server/searchservice/src/search.route.ts#L44-L55) *(with a 3rd party module)* when calling the Scryfall API. This adds more resilienc to the backend, even when (not if) the Scryfall API is slow or down.  
+6. Though the Scryfall API supports paignation by indicating if there's a `next` page in a result list and also providing a link to the said next page, my backend service computes a `previous` page link where applicable. This allows the client to easily setup two-way navigation across search results
+
+
+### Frontend [React Client](https://github.com/chalu/tcgm-fullstack-demo/tree/main/client/r-seeker)
+
+> PS: I initially implemeted [the client](https://tcg-frontend-demo.onrender.com) in vanilla [HTML/CSS/Javascript](https://github.com/chalu/tcgm-fullstack-demo/tree/main/client/v-seeker) because correctly scafolding the React project with Parceljs and Tailwindcss (my preference over create-react-app) was problematic, and I felt delivering a vanilla client was better than no client. I switched back to React once I figured things out 🙃!
+
+1.  The search input field applies basic validation (`minLength` and `required`) which conforms with the backend API but the client also eforces similar validation with a `/^\w{3,}$/` RegEx before attempting to issue a search call. The extra RegEx validation helps to ensure *power* users (e.g developers) who can disable event handling or validation in the UI/input/form are still not allowed to get nonsense search terms through to the backend.
+
+2.  The App component manages and centralises common application state across its children `SearchBar`, `ResultsView` and `Footer` components.
+
+3.  The `ResultsView` component acknowleges its empty state and displays a nice message welcoming users to take action and enter a search term.
+
+4.  The `CardView` component uses a placeholder image for cases where the returned card from the ScryFall API does not have an image.
+
+5. Users can paginate over large search results such that they'd know their current page and can use the next/previous buttons which also automatically gets disabled at the right point during pagination.
+
+6.  **TODO**: how did we handle attempts to issue too many calls (e.g within a loop) to the backend
+
+7.  **TODO**: move out the /core/ code into a shared module for both the React and vanilla clients
