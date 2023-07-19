@@ -7,7 +7,7 @@
     "start": "parcel",
     "clean": "rm -rf dist",
     "start:local": "http-server ./dist",
-    "build": "pnpm install && pnpm clean && parcel build"
+    "build": "pnpm install && pnpm --filter clientcore build && pnpm clean && parcel build"
   },
   "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "license": "MIT",
