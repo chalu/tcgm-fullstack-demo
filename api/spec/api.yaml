@@ -150,6 +150,7 @@ components:
         message:
           type: string
           maxLength: 500
+          example: 'Welcome to the API backend for the TCG Machines full stack demo'
 
     CardImageURIs:
       type: object
@@ -157,12 +158,15 @@ components:
         small:
           type: string
           format: uri
+          example: 'https://placehold.co/146x204?text=No+Image'
         normal:
           type: string
           format: uri
+          example: 'https://placehold.co/488x680?text=No+Image'
         large:
           type: string
           format: uri
+          example: 'https://placehold.co/666x927?text=No+Image'
     
     Card:
       type: object
@@ -182,27 +186,35 @@ components:
       properties:
         id:
           type: string
+          example: d99a9a7d-d9ca-4c11-80ab-e39d5943a315
         lang:
           type: string
           maxLength: 5
+          example: en
         name:
           type: string
+          example: Aerial Predation
         uri:
           type: string
-          format: uri
+          example: d99a9a7d-d9ca-4c11-80ab-e39d5943a315
         rarity:
           type: string
+          example: rare
         set_name:
           type: string
+          example: Modern Horizons
         collector_number:
           type: number
+          example: 186
         released_at:
           type: string
           format: date
+          example: 2021-06-18
         games:
           type: array
           items:
             type: string
+            example: mtgo
         image_uris:
           $ref: "#/components/schemas/CardImageURIs"
         nonfoil:
@@ -214,8 +226,10 @@ components:
           properties:
             usd:
               type: string
+              example: '0.25'
             eur:
               type: string
+              example: '0.10'
 
     Pagination:
       type: object
@@ -223,9 +237,11 @@ components:
         next:
           type: string
           description: A link to the next page of responses if one exists
+          example: '/search?term=red&page=3'
         previous:
           type: string
           description: A link to the previous page of responses if one exists
+          example: '/search?term=red&page=1'
 
     QueryResult:
       type: object
@@ -269,6 +285,8 @@ components:
           description: The error message from the server
         code:
           type: integer
+          minimum: 400
+          maximum: 599
           pattern: ^\d{3,3}$
         errors:
           type: array
