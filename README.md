@@ -10,10 +10,11 @@ Review the [instructions](./INSTRCTIONS.md) for what was expected and then take 
 
 > ##### Key Assets Delivered
 > ---
-> 1. The backend [API spec]('https://github.com/chalu/tcgm-fullstack-demo/blob/main/api/spec/api.yaml'), deployed at [https://tcg-api-demo.onrender.com]('https://tcg-api-demo.onrender.com')
-> 2. The backend [search service](https://github.com/chalu/tcgm-fullstack-demo/tree/main/server/searchservice), deployed at [https://tcg-backend-demo.onrender.com]('https://tcg-backend-demo.onrender.com/')
-> 3. The frontend [React search client](https://github.com/chalu/tcgm-fullstack-demo/tree/main/client/r-seeker), deployed at [https://tcg-react-client-demo.onrender.com]('https://tcg-react-client-demo.onrender.com')
+> 1. The backend [API spec](./api/spec/api.yaml), deployed at [https://tcg-api-demo.onrender.com](https://tcg-api-demo.onrender.com) as documentation for integrators
+> 2. The backend [search service](./server/searchservice), deployed at [https://tcg-backend-demo.onrender.com](https://tcg-backend-demo.onrender.com/)
+> 3. The frontend [React search client](./client/r-seeker), deployed at [https://tcg-react-client-demo.onrender.com](https://tcg-react-client-demo.onrender.com)
 
+<br />
 
 ## Usage
 
