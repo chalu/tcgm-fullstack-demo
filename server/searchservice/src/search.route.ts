@@ -82,12 +82,14 @@ const parseCard = (raw: Card): Card => {
 
   const parsed: Card = {
     id, name, lang,
-    uri, released_at,
+    released_at,
     rarity, set_name,
     collector_number,
     prices: parsedPrices,
     image_uris: parsedImgs,
-    foil: foil === true, nonfoil: nonfoil === true
+    foil: foil === true,
+    nonfoil: nonfoil === true,
+    uri: (uri || '').substring(uri.lastIndexOf('/'))
   };
 
   if (games?.length) parsed.games = games;
