@@ -33,6 +33,12 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/APIResponseError"
+        '429':
+          description: client issued too many requests within the alloted time
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
         '500':
           description: backend server error
           content:
@@ -61,6 +67,12 @@ paths:
                 $ref: "#/components/schemas/QueryResponse"
         '400':
           description: bad request error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/APIResponseError"
+        '429':
+          description: client issued too many requests within the alloted time
           content:
             application/json:
               schema:
