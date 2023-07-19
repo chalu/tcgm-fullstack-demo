@@ -25,14 +25,8 @@ const ResultsView = ({ searchResults }) => {
 
                 ||
 
-                data.map(({ id, name, image_uris, games, prices }) => (
-                    <CardView
-                        key={id}
-                        id={id}
-                        name={name}
-                        games={games}
-                        prices={prices}
-                        img={image_uris.small || image_uris.normal} />
+                data.map((card) => (
+                    <CardView key={card.id} card={card} />
                 ))
             }
         </div>

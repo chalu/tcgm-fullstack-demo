@@ -173,9 +173,12 @@ components:
         - lang
         - prices
         - foil
+        - rarity
         - nonfoil
+        - set_name
         - image_uris
         - released_at
+        - collector_number
       properties:
         id:
           type: string
@@ -187,6 +190,12 @@ components:
         uri:
           type: string
           format: uri
+        rarity:
+          type: string
+        set_name:
+          type: string
+        collector_number:
+          type: number
         released_at:
           type: string
           format: date

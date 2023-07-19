@@ -45,7 +45,7 @@ const searchEndpoint = async (req: Request, res: Response) => {
       numOfAttempts: MaxScryfallAPIRetries,
       retry: (e: any, attemptNumber: number) => {
         let msg = `Calling Scryfall failed [${attemptNumber}]. Will`;
-        msg += attemptNumber >= MaxScryfallAPIRetries ? ' no longer retry' : ' retry'; 
+        msg += attemptNumber >= MaxScryfallAPIRetries ? ' no longer retry' : ' retry';
         log.warn(msg);
         log.warn(e);
         return true;
@@ -66,7 +66,10 @@ const searchEndpoint = async (req: Request, res: Response) => {
 }
 
 const parseCard = (raw: Card): Card => {
-  const { id, name, lang, uri, released_at, games, foil, nonfoil, prices, image_uris } = raw;
+  const {
+    id, name, lang, uri, released_at, games, foil, nonfoil,
+    prices, image_uris, set_name, rarity, collector_number
+  } = raw;
 
   const parsedImgs: CardImageURIs = {};
   if (image_uris?.small) parsedImgs.small = image_uris.small;
@@ -80,6 +83,8 @@ const parseCard = (raw: Card): Card => {
   const parsed: Card = {
     id, name, lang,
     uri, released_at,
+    rarity, set_name,
+    collector_number,
     prices: parsedPrices,
     image_uris: parsedImgs,
     foil: foil === true, nonfoil: nonfoil === true

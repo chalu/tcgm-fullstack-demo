@@ -1,6 +1,21 @@
 import React from 'react';
 
-const CardView = ({ id, name, games, prices, img = 'https://placehold.co/146x204?text=No+Image' }) => {
+import type { Card } from '../../../../api/sdk/model/card';
+
+interface HasCard {
+    card: Card
+}
+
+const CardView = ({card}: HasCard) => {
+
+    const { 
+        id, name, games, prices, image_uris,
+        rarity, set_name, collector_number
+     } = card;
+
+     const img = image_uris.small 
+        || image_uris.normal 
+        || 'https://placehold.co/146x204?text=No+Image'
 
     const priceFigures = prices && Object.keys(prices)
         .map((currency) => {
@@ -25,6 +40,16 @@ const CardView = ({ id, name, games, prices, img = 'https://placehold.co/146x204
                 <h5 className="mb-2 text-1xl break-words font-bold tracking-tight text-gray-900 text-white">
                     {name}
                 </h5>
+                <p className="mb-3 font-bold text-gray-300">
+                    Set: {set_name}
+                </p>
+                <p className="mb-3 font-bold text-gray-300">
+                    Rarity: {rarity}
+                </p>
+                <p className="mb-3 font-bold text-gray-300">
+                    Number: {collector_number}
+                </p>
+                <hr />
                 <p className="mb-3 font-normal text-gray-300">
                     Games: {(games && games.join(' | ')) || 'N/A'}
                 </p>

@@ -18,6 +18,9 @@ export interface Card {
     lang: string;
     name: string;
     uri: string;
+    rarity: string;
+    set_name: string;
+    collector_number: number;
     released_at: string;
     games?: Array<string>;
     image_uris: CardImageURIs;
