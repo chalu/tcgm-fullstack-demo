@@ -5,10 +5,11 @@
     "author": "Charles Opute Odili <chaluwa@gmail.com>",
     "scripts": {
       "clean": "rm -rf ../docs",
-      "build": "pnpm install && pnpm clean && pnpm gen:docs",
+      "build": "pnpm install && pnpm clean && pnpm gen:sdk && pnpm gen:docs",
       "start:dev": "prism mock api.yaml",
       "gen:docs": "redocly build-docs api.yaml --theme.openapi.disableSearch -o ../docs/index.html",
-      "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true"
+      "fix:sdk": "sh ./fix-ts-models.sh",
+      "gen:sdk": "pnpm clean && openapi-generator-cli generate -i api.yaml -g typescript-angular -o ../sdk --global-property models --additional-properties=supportsES6=true && pnpm fix:sdk"
     },
     "devDependencies": {
       "@openapitools/openapi-generator-cli": "^2.6.0",
