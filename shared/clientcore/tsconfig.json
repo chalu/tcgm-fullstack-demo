@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.json",
+    "ts-node": {
+        "transpileOnly": true,
+        "files": true,
+        "swc": true
+    },
+    "compilerOptions": {
+        "outDir": "dist",
+        "lib": ["es5", "es6", "dom"]
+    },
+    "include": [
+        "./src/**/*.ts"
+    ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "clientcore",
+  "version": "1.0.0",
+  "author": "Charles Opute Odili <chaluwa@gmail.com>",
+  "main": "./dist/shared/clientcore/src/index.js",
+  "types": "src/index.ts",
+  "scripts": {
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "build": "tsc --incremental"
+  },
+  "license": "MIT"
+}

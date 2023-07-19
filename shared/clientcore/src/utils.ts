@@ -4,9 +4,9 @@ export const wait = ({ until } = { until: 1000 }) => new Promise<void>((resolve)
     }, until);
 });
 
-export const settle = (tailPromise) => {
+export const settle = (tailPromise: Promise<any>) => {
     return {
-        async after(headPromise) {
+        async after(headPromise: Promise<any>) {
             await headPromise;
             await tailPromise;
         }

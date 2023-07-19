@@ -1,12 +1,4 @@
-import { wait, settle } from "./utils";
-
-const CallStatusReady = 'READY';
-const CallStatusInFlight = 'INFLIGHT';
-
-let delayChain;
-let APICallStatus = CallStatusReady;
-
-const apiBase = 'https://tcg-backend-demo.onrender.com';
+import performSearch from 'clientcore';
 
 const startApp = () => {
     const form = document.querySelector('#form');
@@ -23,7 +15,7 @@ const startApp = () => {
     // Only here as a quick and dirty test
     // ====================================
     // for (const count of [1, 2, 3, 4, 5, 6, 7, 8, 9, 20]) {
-    //     readyToSearchAndDisplayResults('red');
+    //     performSearch('red', () => {});
     // }
 };
 
@@ -37,7 +29,7 @@ const navigate = async (event) => {
         .find((param) => param.startsWith('term='))
         .split('=')[1];
 
-    await readyToSearchAndDisplayResults(searchTerm, href);
+    await performSearch(searchTerm, displayResults, href);
 };
 
 const attemptSubmit = (event) => {
@@ -47,33 +39,10 @@ const attemptSubmit = (event) => {
     if (!field.validity.valid) return;
 
     try {
-        readyToSearchAndDisplayResults(term.value);
+        performSearch(term.value, displayResults);
     } catch (error) {
         console.warn(error);
     }
-};
-
-const searchForTerm = (term, pagedTo = '') => {
-    return async () => {
-        let endpoint = `/search?term=${term}`;
-        if (pagedTo !== '') {
-            const url = new URL(pagedTo, `${apiBase}`);
-            endpoint = `/search${url.search}`;
-        }
-
-        // bubble any error over
-        const resp = await fetch(`${apiBase}${endpoint}`);
-        return await resp.json();
-    }
-};
-
-const issueSearch = async (apiCall) => {
-    APICallStatus = CallStatusInFlight;
-    console.log('Calling backend API ...');
-    const data = await apiCall();
-    console.log('Done!');
-    APICallStatus = CallStatusReady;
-    return data;
 };
 
 const resultItemTemplate = ({ id, name, img, games, prices }) => `
@@ -156,40 +125,6 @@ const displayResults = ({ total, next, previous, data }) => {
 
     currentNav.querySelector('a').textContent = currPage;
 
-};
-
-const readyToSearchAndDisplayResults = async (term, pagedTo = '') => {
-    let apiCall = searchForTerm(term, pagedTo);
-
-    // Aready issued a call. wait for it while staging these ones.
-    // Though we can delay issueing the API call, we also don't want
-    // 10 delayed calls all going out within a very short time window.
-    // Thus, calling readyToSearchAndDisplayResults('red') over a loop
-    // of 10 iterations will:
-    // 1. allow the first call go through to the backend immediately
-    // 2. delay till 1 seconds after the last of the remaining 9 calls was issued
-    // 3. make only one backend call (not 9) for a search, which is likely
-    //    what the user wants to see results for
-    // 
-    // Not rigorously tested, but works fine. Uncomment the loop at the
-    // bottom of the startApp function, reload the app in dev mode
-    // (pnpm --filter seeker start) and the view the console logs
-    if (APICallStatus === CallStatusInFlight) {
-        if (!delayChain) delayChain = Promise.resolve();
-
-        delayChain = settle(wait()).after(delayChain);
-        return;
-    }
-
-    const result = await issueSearch(apiCall);
-    displayResults(result);
-
-    if (delayChain) {
-        await delayChain;
-        delayChain = undefined;
-        const result = await issueSearch(apiCall);
-        displayResults(result);
-    }
 };
 
 document.addEventListener("DOMContentLoaded", startApp);

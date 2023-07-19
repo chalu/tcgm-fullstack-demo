@@ -6,13 +6,18 @@
   "scripts": {
     "start": "parcel",
     "clean": "rm -rf dist",
+    "start:local": "http-server ./dist",
     "build": "pnpm install && pnpm clean && parcel build"
   },
   "author": "Charles Opute Odili <chaluwa@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "http-server": "^14.1.1",
     "parcel": "^2.9.3",
     "postcss": "^8.4.26",
     "tailwindcss": "^3.3.3"
+  },
+  "dependencies": {
+    "clientcore": "workspace:^1.0.0"
   }
 }

@@ -1,10 +1,9 @@
 import React from 'react';
+import performSearch from 'clientcore';
 
 import Footer from './Footer';
 import SearchBar from './SearchBar';
 import ResultsView from './ResultsView';
-
-import performSearch from '../core/engine';
 
 const App = () => {
     const [term, setTerm] = React.useState(null);
