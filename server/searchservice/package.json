@@ -7,11 +7,11 @@
   "scripts": {
     "test": "jest --runInBand",
     "lint": "eslint --fix",
-    "clean": "rm -rf dist tsconfig.tsbuildinfo",
-    "start": "PORT=3001 node ./dist/server/searchservice/src/index.js",
     "build:ts": "tsc --incremental",
     "copyapi": "cp ../../api/spec/api.yaml ./src",
-    "start:dev": "PORT=3001 nodemon ./src/index.ts",
+    "clean": "rm -rf dist tsconfig.tsbuildinfo",
+    "start": "pnpm build && PORT=3001 node ./dist/server/searchservice/src/index.js",
+    "start:dev": "pnpm build && PORT=3001 nodemon ./src/index.ts",
     "build": "pnpm install && pnpm --filter logger --filter expressbare --filter spec build && pnpm copyapi && pnpm build:ts"
   },
   "dependencies": {

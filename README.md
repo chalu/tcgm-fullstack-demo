@@ -33,7 +33,6 @@ pnpm install
 To start the backend search service, run:
 
 ```bash
-pnpm --filter searchservice build
 pnpm --filter searchservice start
 ```
 
@@ -44,7 +43,6 @@ You should now have a Node server running on port **3001**
 To start the frontend React app, run:
 
 ```bash
-pnpm --filter r-seeker build
 pnpm --filter r-seeker start:local
 ```
 
