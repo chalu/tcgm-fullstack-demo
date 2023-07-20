@@ -1,5 +1,7 @@
 # Introduction
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c6ab2ff01cd14fa1954ad1773c0c453e)](https://app.codacy.com/gh/chalu/tcgm-fullstack-demo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 Hello 👋,
 
 This is a simple but production-leve full stack application demo built as part of the requirements for the TCG Machines Senior Fullstack Software Engineer role.
