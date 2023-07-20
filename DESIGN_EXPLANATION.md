@@ -79,4 +79,10 @@ The API spec clearly specifies:
 
 5.  Users can paginate over large search results such that they'd know their current page and can use the next/previous buttons which also automatically gets disabled at the right point during pagination. Note that the Scryfall API only provides a *next* page while our implementation provides two-way next/previous pages
 
-6.  Both the React and vanilla clients reuse the shared [clientcore](./shared/clientcore) which handles calling the backend API and ensures only the right number of calls go out to the backend.
+6.  Both the React and vanilla clients reuse the shared [clientcore](./shared/clientcore) sub-project in the monorepo which handles calling the backend API and ensures only the right number of calls go out within a 1 second window. `performSearch` from **clientcore** is the entry point to calling the backend with a search term, and invoking it inside a loop (see below) still ensures only 2 calls go out - the first which goes out immediately and one more which goes out after the 10th call's 1 second delay elapses
+
+    ```javascript
+    for (const itm of Array(10)) {
+        performSearch('red', () => {});
+    }
+    ```
