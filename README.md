@@ -1,5 +1,7 @@
 # Introduction
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/c6ab2ff01cd14fa1954ad1773c0c453e)](https://app.codacy.com/gh/chalu/tcgm-fullstack-demo/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+
 Hello 👋,
 
 This is a simple but production-leve full stack application demo built as part of the requirements for the TCG Machines Senior Fullstack Software Engineer role.
@@ -10,13 +12,13 @@ Review the [instructions](./INSTRCTIONS.md) for what was expected and then take 
 
 > ## Key Assets Delivered
 >
-> ---
+> ***
 >
-> 1. The backend [API spec](./api/spec/api.yaml), deployed at [https://tcg-api-demo.onrender.com](https://tcg-api-demo.onrender.com) as documentation for integrators
-> 2. The backend [search service](./server/searchservice), deployed at [https://tcg-backend-demo.onrender.com](https://tcg-backend-demo.onrender.com/)
-> 3. The frontend [React search client](./client/r-seeker), deployed at [https://tcg-react-client-demo.onrender.com](https://tcg-react-client-demo.onrender.com)
+> 1.  The backend [API spec](./api/spec/api.yaml), deployed at <https://tcg-api-demo.onrender.com> as documentation for integrators
+> 2.  The backend [search service](./server/searchservice), deployed at [https://tcg-backend-demo.onrender.com](https://tcg-backend-demo.onrender.com/)
+> 3.  The frontend [React search client](./client/r-seeker), deployed at <https://tcg-react-client-demo.onrender.com>
 
-&nbsp;
+ 
 
 ## Usage
 
