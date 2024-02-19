@@ -1,7 +1,7 @@
 {
   "name": "tcgm-fullstack-demo",
   "version": "1.0.0",
-  "description": "take home assessment for senior full stack engineer role at TCG machines",
+  "description": "TCG fullstack demo app",
   "main": "index.js",
   "preinstall": "npx only-allow pnpm",
   "scripts": {

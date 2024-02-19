@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 info:
   version: 1.0.0
-  title: TCG Machines API Demo
+  title: TCG API Demo
   description: |
     A simple REST API for searching and listing trading game cards
   license:
@@ -162,7 +162,7 @@ components:
         message:
           type: string
           maxLength: 500
-          example: 'Welcome to the API backend for the TCG Machines full stack demo'
+          example: 'Welcome to the API backend for the TCG full stack demo'
 
     CardImageURIs:
       type: object

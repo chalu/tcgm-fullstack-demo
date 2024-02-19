@@ -162,7 +162,7 @@ components:
         message:
           type: string
           maxLength: 500
-          example: 'Welcome to the API backend for the TCG Machines full stack demo'
+          example: 'Welcome to the API backend for the TCG full stack demo'
 
     CardImageURIs:
       type: object
