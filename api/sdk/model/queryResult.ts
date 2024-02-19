@@ -1,5 +1,5 @@
 /**
- * TCG Machines API Demo
+ * TCG API Demo
  * A simple REST API for searching and listing trading game cards 
  *
  * The version of the OpenAPI document: 1.0.0
@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { Card } from './card';
+import { Card } from './card';
 
 
 export interface QueryResult { 
