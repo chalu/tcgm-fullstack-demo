@@ -8,7 +8,8 @@ This is a simple but *production-level full stack application.
 
 ![React client preview](./client/r-seeker/tcgm-fullstack-react-client.png)
 
-Review this [document](./INSTRCTIONS.md) for what was expected and then take a look at the [explanation](./DESIGN_EXPLANATION.md) for my implementation details.
+
+Review [what was expected](./INSTRCTIONS.md) and an overview of my [implementation details](./DESIGN_EXPLANATION.md).
 
 > ## Key Assets Delivered
 >
@@ -33,7 +34,6 @@ pnpm install
 To start the backend search service, run:
 
 ```bash
-pnpm --filter searchservice build
 pnpm --filter searchservice start
 ```
 

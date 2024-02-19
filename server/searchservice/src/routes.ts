@@ -6,7 +6,7 @@ const router = Router();
 
 router.get('/', (_req: Request, res: Response) => {
   return res.json({
-    message: 'Welcome to the API backend for the TCG full stack demo'
+    message: 'Welcome to the TCG demo API backend'
   });
 });
 
