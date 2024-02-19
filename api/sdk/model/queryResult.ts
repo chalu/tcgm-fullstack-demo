@@ -9,7 +9,7 @@
  * https://openapi-generator.tech
  * Do not edit the class manually.
  */
-import type { Card } from './card';
+import { Card } from './card';
 
 
 export interface QueryResult { 

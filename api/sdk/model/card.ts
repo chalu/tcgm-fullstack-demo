@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 import type { CardPrices } from './cardPrices';
-import type { CardImageURIs } from './cardImageURIs';
+import type  { CardImageURIs } from './cardImageURIs';
 
 
 export interface Card { 
