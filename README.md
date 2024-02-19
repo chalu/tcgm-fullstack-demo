@@ -4,11 +4,11 @@
 
 Hello 👋,
 
-This is a simple but production-leve full stack application demo built as part of the requirements for the TCG Machines Senior Fullstack Software Engineer role.
+This is a simple but *production-level full stack application.
 
 ![React client preview](./client/r-seeker/tcgm-fullstack-react-client.png)
 
-Review the [instructions](./INSTRCTIONS.md) for what was expected and then take a look at the [explanation](./DESIGN_EXPLANATION.md) for my implementation details.
+Review this [document](./INSTRCTIONS.md) for what was expected and then take a look at the [explanation](./DESIGN_EXPLANATION.md) for my implementation details.
 
 > ## Key Assets Delivered
 >
@@ -43,6 +43,7 @@ You should now have a Node server running on port **3001**
 To start the frontend React app, run:
 
 ```bash
+pnpm --filter r-seeker build
 pnpm --filter r-seeker start:local
 ```
 
